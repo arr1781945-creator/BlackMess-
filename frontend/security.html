@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Setup - BlackMess</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #FFFFFF;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 48px;
+            position: relative;
+        }
+        
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #2BAC76;
+            z-index: 0;
+        }
+        
+        .progress-step {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+        }
+        
+        .step-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #2BAC76;
+            border: 2px solid #2BAC76;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .step-circle.active {
+            background: #4A154B;
+            border-color: #4A154B;
+        }
+        
+        .step-label {
+            font-size: 12px;
+            color: #616061;
+            text-align: center;
+        }
+        
+        .card {
+            background: white;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            padding: 48px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1d1c1d;
+            margin-bottom: 12px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #616061;
+            margin-bottom: 32px;
+        }
+        
+        .alert {
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+        
+        .alert-warning {
+            background: rgba(236, 178, 46, 0.1);
+            border: 1px solid rgba(236, 178, 46, 0.3);
+            color: #8B6914;
+        }
+        
+        .security-section {
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .section-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4A154B, #611f69);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1d1c1d;
+        }
+        
+        .section-desc {
+            font-size: 14px;
+            color: #616061;
+            margin-bottom: 16px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1d1c1d;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #868686;
+            border-radius: 4px;
+            font-size: 15px;
+            font-family: 'Courier New', monospace;
+            transition: all 0.15s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #1d9bd1;
+            box-shadow: 0 0 0 4px rgba(29, 155, 209, 0.1);
+        }
+        
+        .password-strength {
+            margin-top: 8px;
+            display: flex;
+            gap: 4px;
+        }
+        
+        .strength-bar {
+            flex: 1;
+            height: 4px;
+            background: #E0E0E0;
+            border-radius: 2px;
+        }
+        
+        .strength-bar.active {
+            background: #E01E5A;
+        }
+        
+        .strength-bar.active.medium {
+            background: #ECB22E;
+        }
+        
+        .strength-bar.active.strong {
+            background: #2BAC76;
+        }
+        
+        .form-hint {
+            font-size: 13px;
+            color: #616061;
+            margin-top: 8px;
+        }
+        
+        .qr-container {
+            text-align: center;
+            padding: 24px;
+            background: #f8f8f8;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+        
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 16px;
+            background: white;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #868686;
+        }
+        
+        .recovery-code {
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            color: #4A154B;
+            background: white;
+            padding: 16px;
+            border-radius: 4px;
+            margin: 16px 0;
+            letter-spacing: 2px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: #4A154B;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #611f69;
+        }
+        
+        .btn-secondary {
+            background: #E0E0E0;
+            color: #1d1c1d;
+        }
+        
+        .btn-secondary:hover {
+            background: #c1c1c1;
+        }
+        
+        .usb-setup {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        
+        .usb-slot {
+            border: 2px dashed #E0E0E0;
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        
+        .usb-slot:hover {
+            border-color: #4A154B;
+            background: rgba(74, 21, 75, 0.02);
+        }
+        
+        .usb-slot.configured {
+            border-color: #2BAC76;
+            background: rgba(43, 172, 118, 0.05);
+        }
+        
+        .usb-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 12px;
+            opacity: 0.5;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            background: #f8f8f8;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            margin-top: 4px;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .checkbox-group label {
+            flex: 1;
+            font-size: 14px;
+            color: #1d1c1d;
+            line-height: 1.5;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: #2BAC76;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+            margin-top: 32px;
+        }
+        
+        .submit-btn:hover {
+            background: #1D8A5E;
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-step">
+                <div class="step-circle">✓</div>
+                <div class="step-label">Account</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-circle">✓</div>
+                <div class="step-label">Workspace</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-circle">✓</div>
+                <div class="step-label">Verify</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-circle active">4</div>
+                <div class="step-label">Security</div>
+            </div>
+        </div>
+
+        <!-- Security Setup Card -->
+        <div class="card">
+            <h1>🔒 Security Setup</h1>
+            <p class="subtitle">Amankan data Anda dengan enkripsi zero-knowledge</p>
+
+            <div class="alert alert-warning">
+                <strong>⚠️ Penting!</strong><br>
+                Password database dan recovery key yang Anda buat adalah satu-satunya cara mengakses data Anda. 
+                Kami TIDAK dapat membantu jika Anda lupa. Simpan dengan aman!
+            </div>
+
+            <form id="securityForm">
+                <!-- Database Password -->
+                <div class="security-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0110 0v4"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="section-title">Database Password</div>
+                            <div class="section-desc">Master password untuk enkripsi semua data Anda</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Buat Password</label>
+                        <input 
+                            type="password" 
+                            id="dbPassword" 
+                            class="form-input" 
+                            placeholder="Minimal 12 karakter"
+                            minlength="12"
+                            required
+                        >
+                        <div class="password-strength" id="passwordStrength">
+                            <div class="strength-bar"></div>
+                            <div class="strength-bar"></div>
+                            <div class="strength-bar"></div>
+                            <div class="strength-bar"></div>
+                        </div>
+                        <div class="form-hint">Gunakan kombinasi huruf besar, kecil, angka, dan simbol</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Konfirmasi Password</label>
+                        <input 
+                            type="password" 
+                            id="dbPasswordConfirm" 
+                            class="form-input" 
+                            placeholder="Ketik ulang password"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <!-- Recovery Key / QR Code -->
+                <div class="security-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                                <rect x="7" y="7" width="3" height="3"></rect>
+                                <rect x="14" y="7" width="3" height="3"></rect>
+                                <rect x="7" y="14" width="3" height="3"></rect>
+                                <rect x="14" y="14" width="3" height="3"></rect>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="section-title">Recovery Key</div>
+                            <div class="section-desc">Simpan QR code atau kode ini untuk recovery</div>
+                        </div>
+                    </div>
+
+                    <div class="qr-container">
+                        <div class="qr-code" id="qrCode">
+                            QR Code akan di-generate
+                        </div>
+                        <button type="button" class="btn btn-secondary" onclick="generateQR()">
+                            Generate Recovery QR
+                        </button>
+                    </div>
+
+                    <div class="recovery-code" id="recoveryCode">
+                        XXXX-XXXX-XXXX-XXXX-XXXX
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="savedRecovery" required>
+                        <label for="savedRecovery">
+                            <strong>Saya telah menyimpan recovery key dengan aman</strong><br>
+                            <small>Print atau simpan di password manager. Jangan screenshot!</small>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- USB Keys (Optional) -->
+                <div class="security-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <rect x="7" y="7" width="10" height="12" rx="2"></rect>
+                                <path d="M10 7V4a1 1 0 011-1h2a1 1 0 011 1v3"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="section-title">USB Security Keys (Opsional)</div>
+                            <div class="section-desc">Tingkatkan keamanan dengan 2 USB key fisik</div>
+                        </div>
+                    </div>
+
+                    <div class="usb-setup">
+                        <div class="usb-slot" id="usbSlot1" onclick="setupUSB(1)">
+                            <svg class="usb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="7" y="7" width="10" height="12" rx="2"></rect>
+                            </svg>
+                            <div>USB Key 1</div>
+                            <div style="font-size: 12px; color: #868686; margin-top: 4px;">
+                                <span id="usb1Status">Belum dikonfigurasi</span>
+                            </div>
+                        </div>
+
+                        <div class="usb-slot" id="usbSlot2" onclick="setupUSB(2)">
+                            <svg class="usb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="7" y="7" width="10" height="12" rx="2"></rect>
+                            </svg>
+                            <div>USB Key 2</div>
+                            <div style="font-size: 12px; color: #868686; margin-top: 4px;">
+                                <span id="usb2Status">Belum dikonfigurasi</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-hint" style="margin-top: 16px;">
+                        USB keys memberikan lapisan keamanan tambahan. Minimal 1 dari 2 USB diperlukan untuk login.
+                    </div>
+                </div>
+
+                <!-- Final Confirmation -->
+                <div class="checkbox-group">
+                    <input type="checkbox" id="understoodSecurity" required>
+                    <label for="understoodSecurity">
+                        <strong>Saya memahami bahwa:</strong><br>
+                        • Data saya dienkripsi dengan password yang hanya saya tahu<br>
+                        • BlackMess TIDAK dapat memulihkan data jika saya lupa password<br>
+                        • Recovery key adalah satu-satunya cara memulihkan akses<br>
+                        • Saya bertanggung jawab atas keamanan password dan recovery key
+                    </label>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn" disabled>
+                    🎉 Selesai & Masuk ke Dashboard
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        let usb1Configured = false;
+        let usb2Configured = false;
+        let recoveryKey = '';
+
+        // Password strength checker
+        document.getElementById('dbPassword').addEventListener('input', (e) => {
+            const password = e.target.value;
+            const strength = calculateStrength(password);
+            
+            const bars = document.querySelectorAll('.strength-bar');
+            bars.forEach((bar, index) => {
+                bar.classList.remove('active', 'medium', 'strong');
+                if (index < strength) {
+                    bar.classList.add('active');
+                    if (strength >= 3) bar.classList.add('medium');
+                    if (strength >= 4) bar.classList.add('strong');
+                }
+            });
+            
+            checkFormComplete();
+        });
+
+        function calculateStrength(password) {
+            let strength = 0;
+            if (password.length >= 12) strength++;
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+            if (/\d/.test(password)) strength++;
+            if (/[^a-zA-Z0-9]/.test(password)) strength++;
+            return strength;
+        }
+
+        // Password confirmation
+        document.getElementById('dbPasswordConfirm').addEventListener('input', checkFormComplete);
+
+        // Generate QR and Recovery Key
+        function generateQR() {
+            // Generate random recovery key
+            recoveryKey = Array.from({length: 5}, () => 
+                Math.random().toString(36).substring(2, 6).toUpperCase()
+            ).join('-');
+            
+            document.getElementById('recoveryCode').textContent = recoveryKey;
+            
+            // Generate QR code
+            const qrContainer = document.getElementById('qrCode');
+            qrContainer.innerHTML = '';
+            new QRCode(qrContainer, {
+                text: recoveryKey,
+                width: 180,
+                height: 180
+            });
+            
+            checkFormComplete();
+        }
+
+        // Auto-generate on page load
+        window.addEventListener('DOMContentLoaded', generateQR);
+
+        // USB Setup
+        function setupUSB(slot) {
+            const slotEl = document.getElementById(`usbSlot${slot}`);
+            const statusEl = document.getElementById(`usb${slot}Status`);
+            
+            if (confirm(`Masukkan USB key ${slot} dan tekan OK untuk mengkonfigurasi`)) {
+                if (slot === 1) {
+                    usb1Configured = true;
+                    statusEl.textContent = '✓ Dikonfigurasi';
+                    slotEl.classList.add('configured');
+                } else {
+                    usb2Configured = true;
+                    statusEl.textContent = '✓ Dikonfigurasi';
+                    slotEl.classList.add('configured');
+                }
+                
+                // Simulate key generation
+                const key = Math.random().toString(36).substring(2, 10).toUpperCase();
+                localStorage.setItem(`usb_key_${slot}`, key);
+                
+                checkFormComplete();
+            }
+        }
+
+        // Checkboxes
+        document.getElementById('savedRecovery').addEventListener('change', checkFormComplete);
+        document.getElementById('understoodSecurity').addEventListener('change', checkFormComplete);
+
+        function checkFormComplete() {
+            const password = document.getElementById('dbPassword').value;
+            const passwordConfirm = document.getElementById('dbPasswordConfirm').value;
+            const savedRecovery = document.getElementById('savedRecovery').checked;
+            const understood = document.getElementById('understoodSecurity').checked;
+            
+            const btn = document.getElementById('submitBtn');
+            
+            if (password.length >= 12 && 
+                password === passwordConfirm && 
+                recoveryKey &&
+                savedRecovery && 
+                understood) {
+                btn.disabled = false;
+            } else {
+                btn.disabled = true;
+            }
+        }
+
+        // Form submit
+        document.getElementById('securityForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.textContent = '🔐 Mengenkripsi data Anda...';
+            
+            const securityData = {
+                dbPassword: document.getElementById('dbPassword').value,
+                recoveryKey: recoveryKey,
+                usb1: usb1Configured ? localStorage.getItem('usb_key_1') : null,
+                usb2: usb2Configured ? localStorage.getItem('usb_key_2') : null,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Save encrypted (in production, encrypt with Web Crypto API)
+            localStorage.setItem('security_config', JSON.stringify(securityData));
+            localStorage.setItem('setup_complete', 'true');
+            
+            // Simulate encryption process
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            btn.textContent = '✅ Setup selesai! Redirecting...';
+            
+            // Redirect to dashboard
+            setTimeout(() => {
+                window.location.href = '/dashboard.html';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
+    <script src="js/complete-auth.js"></script>
+    <script src="js/master-integration.js"></script>

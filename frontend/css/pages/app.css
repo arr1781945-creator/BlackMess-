@@ -1,0 +1,566 @@
+.app-container {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    height: 100vh;
+    overflow: hidden;
+    background: var(--bg-primary);
+}
+
+/* ========== SIDEBAR ========== */
+.sidebar {
+    background: var(--bg-sidebar);
+    color: var(--text-inverse);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 4px 0 16px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* Gradient overlay animation */
+.sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+    pointer-events: none;
+}
+
+/* Workspace Header */
+.workspace-header {
+    padding: var(--space-md);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+.workspace-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    border-radius: var(--border-radius);
+    color: var(--text-inverse);
+    font-weight: 700;
+    font-size: var(--font-size-lg);
+    transition: all var(--transition-fast);
+    background: rgba(255, 255, 255, 0);
+}
+
+.workspace-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(2px);
+}
+
+.workspace-btn svg {
+    transition: transform var(--transition-fast);
+}
+
+.workspace-btn:hover svg {
+    transform: rotate(180deg);
+}
+
+/* Navigation */
+.sidebar-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-sm);
+}
+
+/* Custom scrollbar for sidebar */
+.sidebar-nav::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Nav Section */
+.nav-section {
+    margin-bottom: var(--space-lg);
+}
+
+.nav-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-xs) var(--space-sm);
+    margin-bottom: var(--space-xs);
+}
+
+.nav-section-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color var(--transition-fast);
+}
+
+.nav-section-toggle:hover {
+    color: var(--text-inverse);
+}
+
+.nav-section-toggle svg {
+    transition: transform var(--transition-fast);
+}
+
+.nav-section-action {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius);
+    color: rgba(255, 255, 255, 0.7);
+    transition: all var(--transition-fast);
+}
+
+.nav-section-action:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-inverse);
+    transform: rotate(90deg);
+}
+
+/* Nav Items - Animated */
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: 8px 12px;
+    border-radius: var(--border-radius);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: var(--font-size-md);
+    font-weight: 500;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Slide-in effect */
+.nav-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--slack-green);
+    transform: scaleY(0);
+    transition: transform var(--transition-fast);
+}
+
+.nav-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-inverse);
+    transform: translateX(4px);
+}
+
+.nav-item:hover::before {
+    transform: scaleY(1);
+}
+
+.nav-item.active {
+    background: rgba(29, 155, 209, 0.3);
+    color: var(--text-inverse);
+    font-weight: 600;
+}
+
+.nav-item.active::before {
+    transform: scaleY(1);
+}
+
+.nav-item-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.nav-item-text {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Badge - Pulsing animation */
+.nav-item-badge {
+    background: var(--slack-red);
+    color: var(--text-inverse);
+    padding: 2px 7px;
+    border-radius: 12px;
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+    padding: var(--space-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-profile {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm);
+    border-radius: var(--border-radius);
+    transition: all var(--transition-fast);
+}
+
+.user-profile:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--border-radius);
+    background: linear-gradient(135deg, var(--slack-red) 0%, var(--slack-yellow) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--font-size-lg);
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.user-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: var(--font-size-md);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--font-size-xs);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--text-tertiary);
+    animation: breathe 2s infinite;
+}
+
+.status-indicator.active {
+    background: var(--slack-green);
+    box-shadow: 0 0 8px var(--slack-green);
+}
+
+@keyframes breathe {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+/* ========== MAIN CONTENT ========== */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--bg-primary);
+}
+
+/* Channel Header */
+.channel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--space-lg);
+    height: 64px;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+    background: var(--bg-primary);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
+}
+
+.channel-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.channel-name {
+    font-size: var(--font-size-lg);
+    font-weight: 900;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.channel-details-btn {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    padding: 6px 12px;
+    border-radius: var(--border-radius);
+    transition: all var(--transition-fast);
+}
+
+.channel-details-btn:hover {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.channel-actions {
+    display: flex;
+    gap: var(--space-xs);
+}
+
+/* Messages Area */
+.messages-area {
+    flex: 1;
+    overflow-y: auto;
+    position: relative;
+    background: var(--bg-primary);
+}
+
+.messages-container {
+    padding: var(--space-lg);
+    max-width: 100%;
+}
+
+/* Message - Hover & Animation */
+.message {
+    display: flex;
+    gap: var(--space-sm);
+    padding: var(--space-sm) 0;
+    border-radius: var(--border-radius);
+    transition: all var(--transition-fast);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message:hover {
+    background: var(--bg-secondary);
+    margin: 0 calc(-1 * var(--space-md));
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+}
+
+.message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--border-radius);
+    background: linear-gradient(135deg, var(--slack-blue) 0%, var(--slack-purple) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: var(--text-inverse);
+    flex-shrink: 0;
+    box-shadow: var(--shadow-sm);
+}
+
+.message-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.message-header {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-sm);
+    margin-bottom: 4px;
+}
+
+.message-author {
+    font-weight: 700;
+    font-size: var(--font-size-md);
+    color: var(--text-primary);
+}
+
+.message-time {
+    font-size: var(--font-size-xs);
+    color: var(--text-tertiary);
+}
+
+.message-text {
+    color: var(--text-primary);
+    line-height: 1.6;
+    word-wrap: break-word;
+}
+
+/* Message Input */
+.message-input-container {
+    padding: var(--space-lg);
+    border-top: 1px solid var(--border-color);
+    flex-shrink: 0;
+    background: var(--bg-primary);
+}
+
+.message-input-wrapper {
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    background: var(--bg-primary);
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.message-input-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--border-radius-lg);
+    padding: 2px;
+    background: linear-gradient(135deg, var(--slack-purple), var(--slack-green));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+}
+
+.message-input-wrapper:focus-within {
+    border-color: transparent;
+}
+
+.message-input-wrapper:focus-within::before {
+    opacity: 1;
+}
+
+.message-toolbar {
+    display: flex;
+    gap: var(--space-xs);
+    padding: var(--space-sm);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.toolbar-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius);
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+}
+
+.toolbar-btn:hover {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+}
+
+#messageInput {
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    border: none;
+    resize: none;
+    font-size: var(--font-size-md);
+    color: var(--text-primary);
+    background: transparent;
+    max-height: 200px;
+    line-height: 1.5;
+}
+
+#messageInput:focus {
+    outline: none;
+}
+
+#messageInput::placeholder {
+    color: var(--text-tertiary);
+}
+
+.send-btn {
+    position: absolute;
+    right: var(--space-md);
+    bottom: var(--space-md);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--slack-green) 0%, #1D8A5E 100%);
+    color: var(--text-inverse);
+    border-radius: 50%;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-md);
+}
+
+.send-btn:hover {
+    background: linear-gradient(135deg, #35C487 0%, #248F66 100%);
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: 0 8px 16px rgba(43, 172, 118, 0.4);
+}
+
+.send-btn:active {
+    transform: scale(0.95);
+}
+
+.send-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .app-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .sidebar {
+        position: fixed;
+        left: -260px;
+        top: 0;
+        bottom: 0;
+        z-index: 100;
+        transition: left var(--transition-normal);
+    }
+    
+    .sidebar.mobile-open {
+        left: 0;
+    }
+}

@@ -1,0 +1,606 @@
+/* Import all components */
+@import url('reset.css');
+@import url('variables.css');
+@import url('components/modal.css');
+@import url('components/button.css');
+@import url('components/form.css');
+@import url('components/settings.css');
+@import url('components/profile.css');
+@import url('components/search.css');
+@import url('pages/auth.css');
+@import url('pages/app.css');
+
+/* Toast Notifications */
+.toast-container {
+    position: fixed;
+    top: var(--space-lg);
+    right: var(--space-lg);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    pointer-events: none;
+}
+
+.toast {
+    background: var(--bg-primary);
+    border-radius: var(--border-radius-lg);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-xl);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    min-width: 320px;
+    max-width: 420px;
+    animation: slideInRight 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    pointer-events: all;
+    border-left: 4px solid;
+    backdrop-filter: blur(10px);
+}
+
+.toast.success { 
+    border-color: var(--slack-green);
+    background: linear-gradient(90deg, rgba(43, 172, 118, 0.1) 0%, var(--bg-primary) 100%);
+}
+
+.toast.error { 
+    border-color: var(--slack-red);
+    background: linear-gradient(90deg, rgba(224, 30, 90, 0.1) 0%, var(--bg-primary) 100%);
+}
+
+.toast.warning { 
+    border-color: var(--slack-yellow);
+    background: linear-gradient(90deg, rgba(236, 178, 46, 0.1) 0%, var(--bg-primary) 100%);
+}
+
+.toast.info { 
+    border-color: var(--slack-blue);
+    background: linear-gradient(90deg, rgba(18, 100, 163, 0.1) 0%, var(--bg-primary) 100%);
+}
+
+.toast-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.toast-message {
+    flex: 1;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Scrollbar Global */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--slack-purple), var(--slack-blue));
+    border-radius: 10px;
+    border: 2px solid var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--slack-blue), var(--slack-green));
+}
+
+/* Selection Color */
+::selection {
+    background: var(--slack-purple);
+    color: white;
+}
+
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Focus Visible (Accessibility) */
+*:focus-visible {
+    outline: 2px solid var(--slack-blue);
+    outline-offset: 2px;
+}
+
+/* Utility Classes */
+.text-gradient {
+    background: linear-gradient(135deg, var(--slack-purple) 0%, var(--slack-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Loading Spinner */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Channel Details */
+.channel-details-container {
+    min-width: 400px;
+}
+
+.channel-details-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius-lg);
+    margin-bottom: var(--space-lg);
+}
+
+.channel-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--slack-purple), var(--slack-blue));
+    color: white;
+    font-size: 32px;
+    font-weight: 900;
+    border-radius: var(--border-radius);
+}
+
+.channel-details-section {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.channel-details-section:last-child {
+    border-bottom: none;
+}
+
+.members-list {
+    margin: var(--space-md) 0;
+}
+
+.member-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm);
+    border-radius: var(--border-radius);
+}
+
+.member-item:hover {
+    background: var(--bg-secondary);
+}
+
+.member-avatar {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--slack-blue), var(--slack-purple));
+    color: white;
+    font-weight: 700;
+    border-radius: var(--border-radius);
+}
+
+.member-info {
+    flex: 1;
+}
+
+.member-name {
+    font-weight: 600;
+    font-size: var(--font-size-md);
+}
+
+.member-role {
+    font-size: var(--font-size-sm);
+    color: var(--text-tertiary);
+}
+
+.settings-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    margin-bottom: var(--space-xs);
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    text-align: left;
+    transition: all var(--transition-fast);
+}
+
+.settings-btn:hover {
+    background: var(--bg-tertiary);
+    transform: translateX(4px);
+}
+
+/* Notifications */
+.notifications-container {
+    min-width: 400px;
+    max-height: 600px;
+}
+
+.notifications-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: var(--space-md);
+}
+
+.notifications-list {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.notifications-empty {
+    text-align: center;
+    padding: var(--space-xl) 0;
+    color: var(--text-tertiary);
+}
+
+.notification-item {
+    display: flex;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--space-xs);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.notification-item:hover {
+    background: var(--bg-secondary);
+}
+
+.notification-item.unread {
+    background: rgba(74, 21, 75, 0.05);
+    border-left: 3px solid var(--slack-purple);
+}
+
+.notification-icon {
+    font-size: 24px;
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.notification-text {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.notification-time {
+    font-size: var(--font-size-xs);
+    color: var(--text-tertiary);
+}
+
+/* File Manager */
+.file-manager-container {
+    min-width: 500px;
+}
+
+.file-manager-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+}
+
+.file-list {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.files-empty {
+    text-align: center;
+    padding: var(--space-xl) 0;
+    color: var(--text-tertiary);
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--space-xs);
+    background: var(--bg-secondary);
+    transition: all var(--transition-fast);
+}
+
+.file-item:hover {
+    background: var(--bg-tertiary);
+}
+
+.file-icon {
+    font-size: 32px;
+}
+
+.file-info {
+    flex: 1;
+}
+
+.file-name {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.file-meta {
+    font-size: var(--font-size-sm);
+    color: var(--text-tertiary);
+}
+
+.file-actions {
+    display: flex;
+    gap: var(--space-xs);
+}
+
+.btn-text {
+    background: none;
+    color: var(--slack-purple);
+    font-weight: 600;
+    padding: 6px 12px;
+}
+
+.btn-text:hover {
+    text-decoration: underline;
+}
+
+/* Thread Sidebar */
+.thread-sidebar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 400px;
+    background: var(--bg-primary);
+    border-left: 1px solid var(--border-color);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    animation: slideInRight 0.3s ease;
+}
+
+.thread-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-lg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.thread-parent-message {
+    padding: var(--space-lg);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    gap: var(--space-sm);
+}
+
+.thread-replies {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-md);
+}
+
+.thread-empty {
+    text-align: center;
+    padding: var(--space-xl);
+    color: var(--text-tertiary);
+}
+
+.thread-reply {
+    display: flex;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+.thread-input {
+    padding: var(--space-md);
+    border-top: 1px solid var(--border-color);
+}
+
+.thread-input textarea {
+    width: 100%;
+    margin-bottom: var(--space-sm);
+    padding: var(--space-sm);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    resize: vertical;
+}
+
+/* Mention Suggestions */
+.mention-suggestions {
+    position: fixed;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    min-width: 200px;
+}
+
+.mention-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.mention-item:hover {
+    background: var(--bg-secondary);
+}
+
+.mention-avatar {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--slack-blue), var(--slack-purple));
+    color: white;
+    font-weight: 700;
+    border-radius: var(--border-radius);
+}
+
+/* DM Avatar */
+.dm-avatar {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--slack-green), var(--slack-blue));
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 50%;
+}
+
+/* User Management */
+.user-management-container {
+    min-width: 600px;
+}
+
+.user-mgmt-tabs {
+    display: flex;
+    gap: var(--space-sm);
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: var(--space-lg);
+}
+
+.tab-btn {
+    padding: var(--space-sm) var(--space-md);
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all var(--transition-fast);
+}
+
+.tab-btn:hover {
+    color: var(--text-primary);
+}
+
+.tab-btn.active {
+    color: var(--slack-purple);
+    border-bottom-color: var(--slack-purple);
+}
+
+.invite-method {
+    margin-bottom: var(--space-lg);
+}
+
+.member-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--space-sm);
+}
+
+.member-details {
+    flex: 1;
+}
+
+.member-name {
+    font-weight: 600;
+}
+
+.member-email {
+    font-size: var(--font-size-sm);
+    color: var(--text-tertiary);
+}
+
+.member-role {
+    padding: 4px 12px;
+    background: var(--bg-tertiary);
+    border-radius: 12px;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+}
+
+.roles-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-md);
+}
+
+.role-card {
+    padding: var(--space-lg);
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius-lg);
+}
+
+.role-card h4 {
+    margin-bottom: var(--space-md);
+}
+
+.role-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.role-card li {
+    padding: var(--space-xs) 0;
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.role-card li:before {
+    content: "✓ ";
+    color: var(--slack-green);
+    font-weight: 700;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .thread-sidebar {
+        width: 100%;
+    }
+    
+    .user-management-container {
+        min-width: auto;
+    }
+    
+    .roles-list {
+        grid-template-columns: 1fr;
+    }
+}

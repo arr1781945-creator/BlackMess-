@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Workspace - BlackMess</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #FFFFFF;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 48px;
+            position: relative;
+        }
+        
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #E0E0E0;
+            z-index: 0;
+        }
+        
+        .progress-step {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+        }
+        
+        .step-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #E0E0E0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .step-circle.active {
+            background: #4A154B;
+            border-color: #4A154B;
+            color: white;
+        }
+        
+        .step-circle.completed {
+            background: #2BAC76;
+            border-color: #2BAC76;
+            color: white;
+        }
+        
+        .step-label {
+            font-size: 12px;
+            color: #616061;
+            text-align: center;
+        }
+        
+        .card {
+            background: white;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            padding: 48px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1d1c1d;
+            margin-bottom: 12px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #616061;
+            margin-bottom: 32px;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1d1c1d;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #868686;
+            border-radius: 4px;
+            font-size: 15px;
+            transition: all 0.15s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #1d9bd1;
+            box-shadow: 0 0 0 4px rgba(29, 155, 209, 0.1);
+        }
+        
+        .form-hint {
+            font-size: 13px;
+            color: #616061;
+            margin-top: 8px;
+        }
+        
+        .url-preview {
+            display: flex;
+            align-items: center;
+            margin-top: 8px;
+            padding: 12px;
+            background: #f8f8f8;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #616061;
+        }
+        
+        .url-preview strong {
+            color: #4A154B;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: #4A154B;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        
+        .submit-btn:hover {
+            background: #611f69;
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-step">
+                <div class="step-circle completed">✓</div>
+                <div class="step-label">Account</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-circle active">2</div>
+                <div class="step-label">Workspace</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-circle">3</div>
+                <div class="step-label">Verify</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-circle">4</div>
+                <div class="step-label">Security</div>
+            </div>
+        </div>
+
+        <!-- Workspace Form -->
+        <div class="card">
+            <h1>Buat Workspace</h1>
+            <p class="subtitle">Workspace adalah tempat tim Anda berkolaborasi</p>
+
+            <form id="workspaceForm">
+                <div class="form-group">
+                    <label class="form-label">Nama Workspace</label>
+                    <input 
+                        type="text" 
+                        id="workspaceName" 
+                        class="form-input" 
+                        placeholder="Nama perusahaan atau tim Anda"
+                        required
+                    >
+                    <div class="form-hint">Nama ini akan terlihat oleh semua anggota workspace</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">URL Workspace</label>
+                    <input 
+                        type="text" 
+                        id="workspaceUrl" 
+                        class="form-input" 
+                        placeholder="nama-perusahaan"
+                        pattern="[a-z0-9-]+"
+                        required
+                    >
+                    <div class="url-preview">
+                        URL Anda: <strong id="urlPreview">blackmess.com/workspace/</strong>
+                    </div>
+                    <div class="form-hint">Hanya huruf kecil, angka, dan tanda hubung (-)</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Deskripsi (Opsional)</label>
+                    <textarea 
+                        id="workspaceDesc" 
+                        class="form-input" 
+                        rows="3"
+                        placeholder="Jelaskan tentang workspace Anda"
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Lanjutkan ke Verifikasi</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // URL Preview
+        const urlInput = document.getElementById('workspaceUrl');
+        const urlPreview = document.getElementById('urlPreview');
+        
+        urlInput.addEventListener('input', (e) => {
+            let value = e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '');
+            e.target.value = value;
+            urlPreview.textContent = `blackmess.com/workspace/${value || '...'}`;
+        });
+        
+        // Form Submit
+        document.getElementById('workspaceForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('workspaceName').value.trim();
+            const url = document.getElementById('workspaceUrl').value.trim();
+            const desc = document.getElementById('workspaceDesc').value.trim();
+            
+            if (!name || !url) {
+                alert('Mohon isi nama dan URL workspace');
+                return;
+            }
+            
+            const btn = e.target.querySelector('.submit-btn');
+            btn.disabled = true;
+            btn.textContent = 'Membuat workspace...';
+            
+            try {
+                // Save to storage
+                localStorage.setItem('workspace_data', JSON.stringify({
+                    name,
+                    url,
+                    description: desc
+                }));
+                
+                // Redirect to email verification
+                window.location.href = '/verify-email.html';
+                
+            } catch (error) {
+                alert('Gagal membuat workspace: ' + error.message);
+                btn.disabled = false;
+                btn.textContent = 'Lanjutkan ke Verifikasi';
+            }
+        });
+    </script>
+</body>
+</html>
+    <script src="js/complete-auth.js"></script>
+    <script src="js/master-integration.js"></script>

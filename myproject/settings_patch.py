@@ -1,0 +1,3 @@
+# Temporarily disable AXES
+AXES_ENABLED = False
+AXES_FAILURE_LIMIT = 999999

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultra Secure Messenger - Lite</title>
+    
+    <!-- Lightweight libraries only -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tweetnacl@1.0.3/nacl-fast.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tweetnacl-util@0.15.1/nacl-util.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/libsodium-wrappers/0.7.13/sodium.min.js"></script>
+    <!-- IPFS DIHAPUS! -->
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <h1>🔒 Ultra Secure Messenger</h1>
+        <div id="status">Initializing...</div>
+        
+        <div id="controls">
+            <button onclick="testSystem()">🧪 Test All Features</button>
+            <button onclick="clearData()">🗑️ Self-Destruct All Data</button>
+        </div>
+        
+        <div id="output"></div>
+    </div>
+
+    <!-- Load modules - NO IPFS -->
+    <script src="js/1-e2ee-secure.js"></script>
+    <script src="js/2-pqc-secure.js"></script>
+    <script src="js/3-zero-knowledge.js"></script>
+    <!-- SKIP IPFS -->
+    <script src="js/5-self-destruct.js"></script>
+    <script src="js/6-anti-screenshot.js"></script>
+    <script src="js/7-anti-forensic.js"></script>
+    <script src="js/8-integration-lite.js"></script>
+    <script src="js/9-app-lite.js"></script>
+</body>
+</html>

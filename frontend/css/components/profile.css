@@ -1,0 +1,270 @@
+/* Profile Container */
+.profile-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Profile Header with Cover */
+.profile-header {
+    position: relative;
+    margin: calc(-1 * var(--space-xl)) calc(-1 * var(--space-xl)) var(--space-xl);
+}
+
+.profile-cover {
+    height: 180px;
+    border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-cover::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 100%);
+}
+
+.profile-avatar-wrapper {
+    position: absolute;
+    bottom: -40px;
+    left: var(--space-lg);
+}
+
+.profile-avatar-large {
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--slack-blue), var(--slack-purple));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: 900;
+    color: white;
+    border: 6px solid var(--bg-primary);
+    box-shadow: var(--shadow-xl);
+    position: relative;
+}
+
+.profile-avatar-edit {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--slack-purple), var(--slack-blue));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-fast);
+}
+
+.profile-avatar-edit:hover {
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Profile Body */
+.profile-body {
+    padding: 60px var(--space-lg) var(--space-lg);
+}
+
+.profile-info {
+    margin-bottom: var(--space-xl);
+}
+
+.profile-name {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--text-primary);
+    margin-bottom: var(--space-xs);
+    background: linear-gradient(135deg, var(--text-primary), var(--slack-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.profile-username {
+    font-size: var(--font-size-md);
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.profile-email {
+    font-size: var(--font-size-sm);
+    color: var(--text-tertiary);
+    margin-bottom: var(--space-md);
+}
+
+.profile-status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: 6px 12px;
+    background: rgba(43, 172, 118, 0.1);
+    border-radius: 20px;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--slack-green);
+}
+
+/* Profile Actions */
+.profile-actions {
+    margin-bottom: var(--space-xl);
+}
+
+.profile-actions .btn {
+    width: 100%;
+}
+
+/* Profile Section */
+.profile-section {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.profile-section:last-child {
+    border-bottom: none;
+}
+
+.profile-section h3 {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+    color: var(--text-primary);
+}
+
+.profile-field {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) 0;
+    font-size: var(--font-size-md);
+    color: var(--text-secondary);
+}
+
+.profile-field svg {
+    flex-shrink: 0;
+    opacity: 0.6;
+}
+
+/* Profile Stats */
+.profile-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+}
+
+.profile-stat {
+    text-align: center;
+    padding: var(--space-md);
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius-lg);
+    transition: all var(--transition-fast);
+}
+
+.profile-stat:hover {
+    background: linear-gradient(135deg, rgba(74, 21, 75, 0.05), rgba(18, 100, 163, 0.05));
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.stat-value {
+    font-size: 32px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--slack-purple), var(--slack-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--space-xs);
+}
+
+.stat-label {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-tertiary);
+}
+
+/* Profile Preference Buttons */
+.profile-pref-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    margin-bottom: var(--space-sm);
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    transition: all var(--transition-fast);
+    text-align: left;
+}
+
+.profile-pref-btn:hover {
+    background: linear-gradient(135deg, rgba(74, 21, 75, 0.05), rgba(18, 100, 163, 0.05));
+    transform: translateX(4px);
+    box-shadow: var(--shadow-sm);
+}
+
+.profile-pref-btn svg {
+    flex-shrink: 0;
+    color: var(--slack-purple);
+}
+
+.profile-pref-btn strong {
+    display: block;
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.profile-pref-btn p {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Animations */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile-container {
+    animation: slideInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .profile-avatar-large {
+        width: 100px;
+        height: 100px;
+        font-size: 40px;
+    }
+    
+    .profile-cover {
+        height: 140px;
+    }
+    
+    .profile-body {
+        padding-top: 50px;
+    }
+    
+    .profile-stats {
+        grid-template-columns: 1fr;
+    }
+}
