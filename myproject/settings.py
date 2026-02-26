@@ -334,4 +334,4 @@ AXES_FAILURE_LIMIT = 999
 
 # Disable AXES to prevent blocking during testing
 AXES_ENABLED = False
-AXES_FAILURE_LIMIT = 999
+AXES_FAILURE_LIMIT = 5
