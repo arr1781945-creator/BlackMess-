@@ -5,7 +5,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-ganti-ini-production-12345'
 
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+
 
 ALLOWED_HOSTS = ['*']
 
@@ -329,8 +330,8 @@ print("✅ Django Axes configured")
 
 # Disable AXES temporarily
 AXES_ENABLED = False
-AXES_FAILURE_LIMIT = 999999
+AXES_FAILURE_LIMIT = 999
 
 # Disable AXES to prevent blocking during testing
 AXES_ENABLED = False
-AXES_FAILURE_LIMIT = 999999
+AXES_FAILURE_LIMIT = 999
