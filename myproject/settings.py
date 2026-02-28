@@ -335,3 +335,15 @@ AXES_FAILURE_LIMIT = 999
 # Disable AXES to prevent blocking during testing
 AXES_ENABLED = False
 AXES_FAILURE_LIMIT = 5
+
+# PostgreSQL Database Configuration
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'blackmess',
+        'USER': 'blackmess_user',
+        'PASSWORD': 'your_secure_password_here',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
